@@ -1,6 +1,3 @@
-# Welcome to GitHub Desktop!
+A user-to-user e-commerce platform available to the students and staff of the Sir Arthur Lewis Community College's Morne Campus.
 
-This is your README. READMEs are where you can communicate what your project is and how to use it.
-
-Write your name on line 6, save it, and then head back to GitHub Desktop.
-Vandan Charlery
+Will allow for listing creation, purchasing, reporting and the use of a payment gateway.
