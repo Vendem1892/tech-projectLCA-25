@@ -10,8 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $pwd = mysqli_real_escape_string($conn, $_POST['pwd']);
-    $pwdRep = mysqli_real_escape_string($conn, $_POST['pwd-rep']);
-    $rChoice = mysqli_real_escape_string($conn, $_POST['occup']);
+    $pwdRep = mysqli_real_escape_string($conn, $_POST['pwd-rep']);    
 
     //Query to check if user exists in the database with given username and password
     $sql = "SELECT * FROM accounts WHERE accEmail = '$email' AND pwd = '$pwd'";

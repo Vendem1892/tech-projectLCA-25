@@ -1,50 +1,94 @@
+/*Create Database and Tables*/ 
+
 CREATE DATABASE IF NOT EXISTS saltradcircdb;
 
 USE saltradcircdb;
 
-CREATE TABLE accounts IF NOT EXISTS(
-accID INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE accounts(
+accID VARCHAR(30) NOT NULL,
 accfName VARCHAR(30) NOT NULL,
 acclName VARCHAR(40) NOT NULL,
-accName VARCHAR(30) NOT NULL,
 email VARCHAR(50) NOT NULL,
 pwd VARCHAR(20) NOT NULL,
 dob DATE NOT NULL,
-sellerID VARCHAR(40),
-PRIMARY KEY (accID),
-FOREIGN KEY (sellerID) REFERENCES sellers(sellerID);
+sellerID VARCHAR(30),
+PRIMARY KEY (accID)
 );
 
-CREATE TABLE sellers IF NOT EXISTS(
-    sellerID INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE sellers(
+    sellerID VARCHAR(30) NOT NULL,
     itemsSold INT,
+    accID VARCHAR(30),
     PRIMARY KEY (sellerID)
 );
 
-CREATE TABLE items IF NOT EXISTS(
-    itemID INT NOT NULL AUTO_INCREMENT,
-    itemName VARCHAR(40) NOT NULL,
+CREATE TABLE items(
+    itemID VARCHAR(40) NOT NULL,
+    itemName TEXT NOT NULL,
     itemPrice DOUBLE NOT NULL,
     itemCategory VARCHAR(20) NOT NULL,
     quantity INT NOT NULL,
-    itemDescription MEDIUMTEXT,
-    itemStatus VARCHAR(10) NOT NULL
-    sellerID INT NOT NULL,
-    PRIMARY KEY (itemID),
-    FOREIGN KEY (sellerID) REFERENCES sellers(sellerID)
+    img1_fName VARCHAR(100) NOT NULL,
+    img1_altText VARCHAR(60),    
+    itemDescription MEDIUMTEXT,    
+	itemDate DATE,
+    itemStatus BOOLEAN NOT NULL,
+    sellerID VARCHAR(30) NOT NULL,
+    PRIMARY KEY (itemID)
 );
 
-CREATE TABLE orders IF NOT EXISTS(
-    ordersID INT NOT NULL AUTO_INCREMENT,
+CREATE TABLE item_images(
+    itemID VARCHAR(40) NOT NULL,
+    img1_fName VARCHAR(100) NOT NULL,
+    img1_altText VARCHAR(60),    
+    img2_fName VARCHAR(100),
+    img2_altText VARCHAR(60),
+    img3_fName VARCHAR(100),
+    img3_altText VARCHAR(60)
+)
+
+CREATE TABLE orders(
+    ordersID VARCHAR(30) NOT NULL,
     orderDate DATE NOT NULL,
-    accID INT NOT NULL,
-    itemID INT NOT NULL,
-    FOREIGN KEY (accID) REFERENCES accounts(accID),
-    FOREIGN KEY (itemID) REFERENCES items(itemID)
+    accID VARCHAR(30) NOT NULL,
+    itemID VARCHAR(40) NOT NULL
 );
 
-CREATE TABLE shoppingcart IF NOT EXISTS(
-    itemID INT NOT NULL,
-    cartPrice DOUBLE,   
-    FOREIGN KEY (itemID) REFERENCES items(itemID)
+CREATE TABLE shoppingcart(
+    itemID VARCHAR(40) NOT NULL,    
+    cartTotal DOUBLE
 );
+
+ALTER TABLE
+    accounts ADD FOREIGN KEY(sellerID) REFERENCES sellers(sellerID);
+ALTER TABLE
+    sellers ADD FOREIGN KEY(accID) REFERENCES accounts(accID);    
+ALTER TABLE
+    items ADD FOREIGN KEY(sellerID) REFERENCES sellers(sellerID);
+ALTER TABLE
+    item_images ADD FOREIGN KEY(itemID) REFERENCES items(itemID);
+ALTER TABLE
+    orders ADD FOREIGN KEY(accID) REFERENCES accounts(accID),
+    ADD FOREIGN KEY(itemID) REFERENCES items(itemID);
+ALTER TABLE
+    shoppingcart ADD FOREIGN KEY(itemID) REFERENCES items(itemID);
+
+/*Insert into Database (for Website)*/
+
+INSERT INTO accounts(accID, accfName, acclName, email, pwd, dob)
+VALUES($accID,$accfName,$acclName, $email,$pwd,$dob);
+
+
+INSERT INTO items(itemID, itemName, itemPrice, itemCategory, quantity, itemDescription, itemDate,itemStatus, sellerID)
+VALUES($itemID, $itemName, $itemPrice, $itemCats, $quans, $itemDes, $itemDate, $itemStatus, $sellID);
+
+
+INSERT INTO sellers(sellerID, itemsSold)
+VALUES($sellID,0);
+
+INSERT INTO accounts(sellerID)
+VALUES($sellID);
+
+INSERT INTO shoppingcart(itemID,cartTotal)
+VALUES($itemID, $cTotal);
+

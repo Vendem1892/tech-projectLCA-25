@@ -1,0 +1,138 @@
+html {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Tahoma", "Verdana", sans-serif;
+}
+
+.head {
+    background-color: #06701f;
+    position: absolute;
+    top: 5%;
+    left: 0;
+    width: 100%;
+    text-decoration: none;
+}
+
+.head-register{
+    background-color:antiquewhite;
+    text-align: center;
+    text-transform: capitalize;
+    text-decoration-style: solid;
+    color: blue;
+}
+
+.head-logIn{
+    background-color:blue;
+}
+
+.nav-bar {
+    list-style: none;
+    display: flex;
+    background-color: #679e74;
+    text-align: left;
+    padding: 0px;
+}
+
+.logo{
+    width: 10%;
+}
+
+.main-menu td {
+    position: relative;
+}
+
+body {
+    background-color: #f2f3f5;
+}
+
+ul {
+    padding-left: 0px;
+    transition: all 0.5s ease;
+  }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: bisque;
+    width: max-content;
+    font-size: medium;
+    padding: 0;
+    padding-left: 0%;
+    margin: 0%;
+  
+  }
+  
+  .dropdown-menu li {
+    display: block;
+  
+    text-align: left;
+    margin: 0%;
+    padding: 0%;
+  }
+
+  .pageLink:hover{
+    color: red;
+    background-color: aquamarine;
+  }
+
+  .box_for_forms {
+    width: 400px; /* Adjust width as needed */
+    background-color: white; /* Background color of the box */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2); /* Box shadow for depth */
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  button {
+    width: 100%;
+    background-color: #679e74;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #679e74;
+  }
+  
+  button.l-sbuttons {
+    width: 48%;
+  }
+  
+  .clearfix {
+    text-align: center; 
+  }
+  
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .pagination{
+    display: inline-block;
+
+  }
+
+  .pagination a {
+    color: rgba(226, 221, 221, 0.462);
+    float: left;
+    padding: 9px 16px;
+    border: 2px solid slategray;
+    text-decoration:wavy;
+  }
+
+  .pagination a.active {
+    background-color: #679e74;
+    color: white;
+  }
+
+  .pagination a:hover:not(.active) {background-color: #ddd;}
+  
