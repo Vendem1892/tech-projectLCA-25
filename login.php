@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log In - Sir Arthur Lewis Trading Circle</title>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/main.tsx"></script>
+    <script src="js/main.js"></script>
 </head>
 
 <body>
@@ -27,11 +27,11 @@
                 <br><br>
                 <div>
                     <label for="email"><b>Email</b></label>
-                    <input type="text" placeholder="Enter Email" name="email" id="email" required>
+                    <input type="text" placeholder="Enter Email" name="email" id="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autofocus required>
                 </div>
                 <br>
                 <div> <label for="pwd"><b>Password</b></label>
-                    <input type="password" placeholder="Enter Password" name="pwd" id="pwd" required>
+                    <input type="password" placeholder="Enter Password" name="pwd" id="pwd" maxlength="20" required>
                 </div>
                 <br>
 

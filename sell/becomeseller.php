@@ -2,7 +2,7 @@
 session_start();
 //Is the user is logged in
 if (isset($_SESSION['email'])) {
-    $uName = $_SESSION['accfName'] + ' ' + $_SESSION['acclName'];
+    $uName = $_SESSION['uName'];
     $id = $_SESSION['accID'];
 } else {
     header("location: login.php");
@@ -37,11 +37,11 @@ if (isset($_SESSION['email'])) {
             <br><br>
             <div>
                 <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+                <input type="text" placeholder="Enter Email" name="email" id="email" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autofocus required>
             </div>
             <br>
             <div> <label for="pwd"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="pwd" id="pwd" required>
+                <input type="password" placeholder="Enter Password" name="pwd" id="pwd" maxlength="20" required>
             </div>
             <br>
             <div>

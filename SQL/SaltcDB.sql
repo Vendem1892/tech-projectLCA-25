@@ -18,7 +18,7 @@ PRIMARY KEY (accID)
 CREATE TABLE sellers(
     sellerID VARCHAR(30) NOT NULL,
     itemsSold INT,
-    accID VARCHAR(30),
+    accID VARCHAR(30) NOT NULL,
     PRIMARY KEY (sellerID)
 );
 
@@ -45,7 +45,7 @@ CREATE TABLE item_images(
     img2_altText VARCHAR(60),
     img3_fName VARCHAR(100),
     img3_altText VARCHAR(60)
-)
+);
 
 CREATE TABLE orders(
     ordersID VARCHAR(30) NOT NULL,
@@ -55,8 +55,8 @@ CREATE TABLE orders(
 );
 
 CREATE TABLE shoppingcart(
-    itemID VARCHAR(40) NOT NULL,    
-    cartTotal DOUBLE
+    itemID VARCHAR(40) NOT NULL,
+	accID VARCHAR(30) NOT NULL
 );
 
 ALTER TABLE
@@ -71,7 +71,8 @@ ALTER TABLE
     orders ADD FOREIGN KEY(accID) REFERENCES accounts(accID),
     ADD FOREIGN KEY(itemID) REFERENCES items(itemID);
 ALTER TABLE
-    shoppingcart ADD FOREIGN KEY(itemID) REFERENCES items(itemID);
+    shoppingcart ADD FOREIGN KEY(itemID) REFERENCES items(itemID),
+	ADD FOREIGN KEY(accID) REFERENCES accounts(accID);
 
 /*Insert into Database (for Website)*/
 
@@ -83,12 +84,14 @@ INSERT INTO items(itemID, itemName, itemPrice, itemCategory, quantity, itemDescr
 VALUES($itemID, $itemName, $itemPrice, $itemCats, $quans, $itemDes, $itemDate, $itemStatus, $sellID);
 
 
-INSERT INTO sellers(sellerID, itemsSold)
-VALUES($sellID,0);
+INSERT INTO sellers(sellerID,itemsSold,accID)
+VALUES($sellID,0,$accID);
 
-INSERT INTO accounts(sellerID)
+UPDATE accounts SET sellerID = $sellID WHERE accID = $accID
 VALUES($sellID);
 
-INSERT INTO shoppingcart(itemID,cartTotal)
-VALUES($itemID, $cTotal);
+INSERT INTO shoppingcart(itemID,accID)
+VALUES($itemID,$accID);
+
+
 

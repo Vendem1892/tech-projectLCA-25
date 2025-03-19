@@ -27,13 +27,12 @@ VALUES ('$itemID', '$iName','$iPrice', '$iCat','$iAmt','$iDate',TRUE,'$iImg1','$
 
 if (mysqli_query($conn,$sql)) {
 	echo "Item added successfully";
+	mysqli_close($conn);
 	header("location ../sell/dasboard.php?listingcreation=successful");
 	exit();
 } else {
+	mysqli_close($conn);
 	die("Error: $sql <br> $conn->error");	
 }
 
-
-
-mysqli_close($conn);
 ?>

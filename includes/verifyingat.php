@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pwdRep = mysqli_real_escape_string($conn, $_POST['pwd-rep']);    
 
     //Query to check if user exists in the database with given username and password
-    $sql = "SELECT * FROM accounts WHERE accEmail = '$email' AND pwd = '$pwd'";
+    $sql = "SELECT * FROM accounts WHERE email = '$email' AND pwd = '$pwd'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
@@ -22,13 +22,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         while ($row = mysqli_fetch_assoc($result)) {
             $uName = $row['accfName'] + ' ' + $row['acclName'];
-            $_SESSION['username'] = $uName;
-            
-            
+            $_SESSION['username'] = $uName;                        
         }
 
         /*Creating a Cookie*/
-        $cookie_name = "$uName";        
+        $cookie_name = $uName;        
         $cookie_value = $email;
         setcookie($cookie_name, $cookie_value, time() + (4 * 3600), "/"); // 3600 = 1 hour
         //setcookie("role", $role, time() + (4 * 3600), "/"); // 3600 = 1 hour

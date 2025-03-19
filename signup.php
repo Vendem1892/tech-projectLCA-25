@@ -5,14 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - Sir Arthur Lewis Trading Circle</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js"></script>
 </head>
 
 <body>
     <header>
-        <div class="bg-green-600 justify-between decoration-solid grid auto-cols-max">
+        <div class="bg-green-600 decoration-solid">
             <div>
-                <img src="" alt="SALCC Trading Circle Logo" class="logo">
+                <img src="#" alt="SALCC Trading Circle Logo" class="w-1 h-1">
                 <h2 class="capitalize absolute h-1 m-5 text-white">Sir Arthur Lewis Trading Circle</h1>
             </div>
         </div>
@@ -28,32 +29,32 @@
 
 
                 <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" id="email" required>
+                <input type="text" placeholder="Enter Email" name="email" id="email" maxlength="50" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" autofocus required>
 
 
                 <br>
 
                 <label for="pwd"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="pwd" id="pwd" required>
+                <input type="password" placeholder="Enter Password (20 characters)" name="pwd" id="pwd" maxlength="20" required>
 
 
                 <br>
 
 
                 <label for="pwd-rep"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" id="pwd-rep" name="pwd-rep" required>
+                <input type="password" placeholder="Repeat Password" id="pwd-rep" name="pwd-rep" maxlength="20" required>
 
 
                 <br>
 
                 <label for="fName">Enter First Name</label><br>
-                <input type="text" placeholder="Ex. John" maxlength=30 id="fName" name="fName">
+                <input type="text" placeholder="Ex. John" maxlength="30" id="fName" name="fName">
 
 
                 <br>
 
                 <label for="lName">Enter Last Name</label><br>
-                <input type="text" placeholder="Ex. Doe" maxlength=30 id="lName" name="lName">
+                <input type="text" placeholder="Ex. Doe" maxlength="40" id="lName" name="lName">
 
 
                 <br>
@@ -62,9 +63,8 @@
                 <input type="date" id="dob" name="dob">
 
 
-
                 <br><br>
-                <div class="clearfix">
+                <div class=" clear-both">
                     <button type="submit"  onclick="checkPassword()">Sign Up</button><br><br><br><br><br>
                     <p>Already have an account?</p><a href="login.php" class="focus:text-yellow-300 focus:underline "></a>Log In</button>
                 </div>

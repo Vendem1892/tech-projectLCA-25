@@ -10,7 +10,7 @@ include_once '../includes/sellerverify.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Sir Athur Lewis Trading Circle</title>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/main.ts"></script>
+    <script src="../js/main.js"></script>
 </head>
 
 

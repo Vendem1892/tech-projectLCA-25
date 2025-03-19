@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $accID = $_SESSION['id'];
 
     //Query to check if user exists in the database with given email and password
-    $sql = "SELECT * FROM accounts WHERE accEmail = '$email' AND pwd = '$pwd'";
+    $sql = "SELECT * FROM accounts WHERE email = '$email' AND pwd = '$pwd'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {
