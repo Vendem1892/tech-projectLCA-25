@@ -10,14 +10,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Sir Arthur Lewis Trading Circle</title>
-    <link rel="stylesheet" href="../css/style.css">    
+    <link rel="stylesheet" href="../css/style.css"> 
+    
 </head>
 
-<body>
+<body class="font-sans">
 <header>
         <div class="bg-green-600 justify-between decoration-solid grid auto-cols-max sticky">
             <div>
-                <img src="../img/#" alt="SALCC Trading Circle Logo" class="logo">                
+                <img src="../img/saltc_logo.webp" alt="SALCC Trading Circle Logo" class="logo">                
                 <h2 class="capitalize absolute h-1 m-5 text-white">Sir Arthur Lewis Trading Circle</h1>
             </div>
             <div class=" inline-flex border-solid rounded-md">
@@ -40,32 +41,34 @@
     </header>    
     <br><br>    
     <div id="prodheader">
-        <h3 class=" font-semibold">Currently Selling Items</h3>
+        <h3 class="font-semibold text-slate-900">Currently Selling Items</h3>
     </div>
-    
+    <br><br>
     <?php 
        
-    $sql = 'SELECT * items WHERE sellerID = $_SESSION[sellID] ORDER BY itemDate';    
+    $sql = 'SELECT * items WHERE sellerID = $_SESSION[sellID] ORDER BY itemDate DESC';    
     $result = mysqli_query($conn,$sql);
     while ($row = mysqli_fetch_assoc($result)){
 
     
 ?>
-    <div class="container flex flex-row columns-4 bg-gray-500">        
+    <span class="flex flex-row bg-gray-500">        
     
-        <div class=" max-w-sm overflow-hidden shadow-lg">
-            <img href='<?php echo $row['img1_fName']?>' alt='<?php echo $row['img1_fName']?>'>
+        <div class="max-w-sm overflow-hidden shadow-lg">
+            <img href='<?php echo $row['img1_fName']?>' alt='<?php echo $row['img1_altText']?>'>
         </div>
-        <div class="md:text-clip">
+        <div class="float-left md:text-clip">
         <h4><?php echo $row['itemName']?></h4>
         </div>
-        <div>
+        <div class="float-left">
             <h6><?php echo $row['itemPrice']?></h6>
         </div>         
-    </div>    
-<?php }?>
+        <?php };?>
+    </span>    
+
     <div class=" bg-white dark:bg-black">
         <div class="items-center">
+            <h3>Would you like to create a new listing?</h3>
             <a href="listanitem.php" class="bg-green-700 text-white text-center outline-2">List An Item</a>
         </div>
     </div>

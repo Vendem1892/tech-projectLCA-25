@@ -3,8 +3,9 @@
 session_start();
 
 //Is the user is logged in
-if(isset($_SESSION['accID'])){
-    $uName = $_SESSION['accfName'] + ' ' + $_SESSION['acclName'];
+if(isset($_SESSION['email'])){
+    $uName = $_SESSION['uName'];
+    $id = $_SESSION['id'];
     echo "<p>Welcome, $username!</p>"; // Displaying username
     echo "<a href='logout.php'>Logout</a>"; 
 } else {

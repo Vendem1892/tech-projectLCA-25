@@ -13,24 +13,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pwdRep = mysqli_real_escape_string($conn, $_POST['pwd-rep']);    
 
     //Query to check if user exists in the database with given username and password
-    $sql = "SELECT * FROM accounts WHERE accEmail = '$email' AND pwd = '$pwd'";
+    $sql = "SELECT * FROM accounts WHERE email = '$email' AND pwd = '$pwd'";
     $result = $conn->query($sql);
 
-    if ($result->num_rows > 0) {
+    if (mysqli_num_rows($result) > 0) {
         // User exists, login successful
         echo "Login successful";
 
-        while ($row = mysqli_fetch_assoc($result)) {
-            $uName = $row['accfName'] + ' ' + $row['acclName'];
-            $_SESSION['username'] = $uName;
+        while ($row = mysqli_fetch_assoc($result)) {            
+            $_SESSION['id'] = $row['accID'];
+            $_SESSION['email'] = $row['email'];
+            $_SESSION['name'] = $row['accfName'].' '.$row['acclName'];
             
-            
+            if($row['sellerID'] != NULL){
+                $_SESSION['sellID'] = $row['sellerID'];
+            }
         }
 
         /*Creating a Cookie*/
-        $cookie_name = "$uName";        
+        $cookie_name = $uName;        
         $cookie_value = $email;
-        setcookie($cookie_name, $cookie_value, time() + (4 * 3600), "/"); // 3600 = 1 hour
+        setcookie($cookie_name, $cookie_value, time() + (2 * 3600), "/"); // 3600 = 1 hour
         //setcookie("role", $role, time() + (4 * 3600), "/"); // 3600 = 1 hour
 
         // Redirect the user to a dashboard or home page
@@ -40,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // No user found with given credentials, login failed
         die("Invalid email or password");
+        header("Location: ../login.php?login=failed");
     }
 }
 
