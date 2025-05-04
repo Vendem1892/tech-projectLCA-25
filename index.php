@@ -45,7 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Home - Sir Arthur Local Trade Application</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/main.js"></script>
+    <script src="js/main.js"></script>
 </head>
+
+<body class="font-sans">
 
 <body class="font-sans">
     <header>

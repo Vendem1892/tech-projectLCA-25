@@ -2,7 +2,6 @@ $ git Status
 
 # Untracked files
  tailwind.config.js
- logout.php
  css/input.css
  react
 

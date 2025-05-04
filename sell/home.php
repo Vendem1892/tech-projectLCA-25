@@ -1,4 +1,5 @@
 <?php
+<?php
 include_once '../includes/dbh.inc.php';
 $itemHead = 'Cheapest Items';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -31,9 +32,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Home - Sir Athur Lewis Trading Circle</title>
     <link rel="stylesheet" href="../css/style.css">
     <script src="../js/main.js"></script>
+    <script src="../js/main.js"></script>
 </head>
 
 
+<body class="font-sans">
 <body class="font-sans">
     <header>
         <div class="bg-green-600 decoration-solid sticky">
@@ -169,7 +172,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li><a href="sell.php">How to Sell</a></li>
                     <li><a href="sell/verify.php">Verification</a></li>
                 </ul>
+        </section>
+
+    </div>
+    <br><br>
+    <footer>
+        <div class="grid grid-cols-4 gap-5 bg-green-600 text-white">
+            <div>
+                <ul class="md:list-outside">
+                    <li class="font-bold capitalize">Shop</li>
+                    <li><a href="#Trending Items">Trending</a></li>
+                    <li><a href="help/buy.php">How to Buy</a></li>
+                    <li><a href="signup.php">Create An Account</a></li>
+                </ul>
             </div>
+            <div>
+                <ul class="md:list-outside">
+                    <li class="font-bold capitalize">Sell</li>
+                    <li><a href="sell/becomesell.php">Become a Seller</a></li>
+                    <li><a href="sell.php">How to Sell</a></li>
+                    <li><a href="sell/verify.php">Verification</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul class="md:list-outside">
+                    <li class="font-bold capitalize">Help</li>
+                    <li><a href="help.php">All Articles</a></li>
+                    <li><a href="help/refund.php">Refunds</a></li>
+                    <li><a href="help/vendor.php">Vendor Guidelines</a></li>
+                    <li><a href="help/safety.php">Safety Guidelines</a></li>
+                </ul>
             <div>
                 <ul class="md:list-outside">
                     <li class="font-bold capitalize">Help</li>
@@ -185,8 +217,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li><a href="contact.php">Contact Information</a></li>
                     <li><a href="policies.php">Policies</a></li>
                 </ul>
+                <ul class="md:list-outside">
+                    <li class="font-bold capitalize"><a href="aboutus.php"></a>About Us</li>
+                    <li><a href="contact.php">Contact Information</a></li>
+                    <li><a href="policies.php">Policies</a></li>
+                </ul>
             </div>
         </div>
+    </footer>
     </footer>
 </body>
 

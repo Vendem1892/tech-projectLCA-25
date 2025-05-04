@@ -85,6 +85,7 @@
   html, :host {
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
     tab-size: 4;
     font-family: var(--default-font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
     font-feature-settings: var(--default-font-feature-settings, normal);
@@ -630,6 +631,7 @@
     border-width: 1px;
   }
   .border-2 {
+  .border-2 {
     border-style: var(--tw-border-style);
     border-width: 2px;
   }
@@ -673,8 +675,8 @@
   .bg-blue-500 {
     background-color: var(--color-blue-500);
   }
-  .bg-gray-300 {
-    background-color: var(--color-gray-300);
+  .border-b-slate-500 {
+    border-bottom-color: var(--color-slate-500);
   }
   .bg-gray-500 {
     background-color: var(--color-gray-500);
@@ -1108,10 +1110,46 @@
       outline-color: var(--color-green-600);
     }
   }
-  .focus\:outline-none {
+  .focus\:outline-solid {
     &:focus {
-      --tw-outline-style: none;
-      outline-style: none;
+      --tw-outline-style: solid;
+      outline-style: solid;
+    }
+  }
+  .active\:bg-gray-950 {
+    &:active {
+      background-color: var(--color-gray-950);
+    }
+  }
+  .active\:text-green-800 {
+    &:active {
+      color: var(--color-green-800);
+    }
+  }
+  .active\:text-yellow-500 {
+    &:active {
+      color: var(--color-yellow-500);
+    }
+  }
+  .md\:h-fit {
+    @media (width >= 48rem) {
+      height: fit-content;
+    }
+  }
+  .md\:w-fit {
+    @media (width >= 48rem) {
+      width: fit-content;
+    }
+  }
+  .md\:list-outside {
+    @media (width >= 48rem) {
+      list-style-position: outside;
+    }
+  }
+  .md\:font-medium {
+    @media (width >= 48rem) {
+      --tw-font-weight: var(--font-weight-medium);
+      font-weight: var(--font-weight-medium);
     }
   }
   .focus\:outline-solid {
@@ -1212,18 +1250,22 @@
     }
   }
   .dark\:hover\:bg-amber-900 {
+  .dark\:hover\:bg-amber-900 {
     @media (prefers-color-scheme: dark) {
       &:hover {
         @media (hover: hover) {
+          background-color: var(--color-amber-900);
           background-color: var(--color-amber-900);
         }
       }
     }
   }
   .dark\:hover\:bg-slate-400 {
+  .dark\:hover\:bg-slate-400 {
     @media (prefers-color-scheme: dark) {
       &:hover {
         @media (hover: hover) {
+          background-color: var(--color-slate-400);
           background-color: var(--color-slate-400);
         }
       }

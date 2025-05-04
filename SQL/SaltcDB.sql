@@ -19,6 +19,7 @@ CREATE TABLE sellers(
     sellerID VARCHAR(30) NOT NULL,
     itemsSold INT,
     accID VARCHAR(30) NOT NULL,
+    accID VARCHAR(30) NOT NULL,
     PRIMARY KEY (sellerID)
 );
 
@@ -41,6 +42,7 @@ CREATE TABLE items(
     itemCategory VARCHAR(20) NOT NULL,
     quantity INT NOT NULL,
     img1_fName VARCHAR(255) NOT NULL,
+    img1_fName VARCHAR(255) NOT NULL,
     img1_altText VARCHAR(60),    
     itemDescription MEDIUMTEXT,    
 	itemDate DATE,
@@ -51,6 +53,9 @@ CREATE TABLE items(
 
 CREATE TABLE item_images(
     itemID VARCHAR(40) NOT NULL,
+    img1_fName VARCHAR(255) NOT NULL,
+    img1_altText VARCHAR(60) NOT NULL,    
+    img2_fName VARCHAR(255),
     img1_fName VARCHAR(255) NOT NULL,
     img1_altText VARCHAR(60) NOT NULL,    
     img2_fName VARCHAR(255),
@@ -70,6 +75,8 @@ CREATE TABLE orders(
 );
 
 CREATE TABLE shoppingcart(
+    itemID VARCHAR(40) NOT NULL,
+	accID VARCHAR(30) NOT NULL
     itemID VARCHAR(40) NOT NULL,
 	accID VARCHAR(30) NOT NULL
 );
@@ -92,6 +99,8 @@ ALTER TABLE
 ALTER TABLE
     shoppingcart ADD FOREIGN KEY(itemID) REFERENCES items(itemID),
 	ADD FOREIGN KEY(accID) REFERENCES accounts(accID);
+    shoppingcart ADD FOREIGN KEY(itemID) REFERENCES items(itemID),
+	ADD FOREIGN KEY(accID) REFERENCES accounts(accID);
 
 /*Insert into Database (for Website)*/
 
@@ -105,9 +114,16 @@ VALUES($itemID, $itemName, $itemPrice, $itemCats, $quans, $itemDes, $itemDate, $
 
 INSERT INTO sellers(sellerID,itemsSold,accID)
 VALUES($sellID,0,$accID);
+INSERT INTO sellers(sellerID,itemsSold,accID)
+VALUES($sellID,0,$accID);
 
 UPDATE accounts SET sellerID = $sellID WHERE accID = $accID
+UPDATE accounts SET sellerID = $sellID WHERE accID = $accID
 VALUES($sellID);
+
+INSERT INTO shoppingcart(itemID,accID)
+VALUES($itemID,$accID);
+
 
 INSERT INTO shoppingcart(itemID,accID)
 VALUES($itemID,$accID);

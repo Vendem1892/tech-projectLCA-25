@@ -12,8 +12,11 @@
     <title>Dashboard - Sir Arthur Lewis Trading Circle</title>
     <link rel="stylesheet" href="../css/style.css"> 
     
+    <link rel="stylesheet" href="../css/style.css"> 
+    
 </head>
 
+<body class="font-sans">
 <body class="font-sans">
 <header>
         <div class="bg-green-600 decoration-solid sticky">
@@ -64,10 +67,13 @@
     </header>    <br><br>    
     <div id="prodheader">
         <h3 class="font-semibold text-slate-900">Currently Selling Items</h3>
+        <h3 class="font-semibold text-slate-900">Currently Selling Items</h3>
     </div>
+    <br><br>
     <br><br>
     <?php 
        
+    $sql = 'SELECT * items WHERE sellerID = $_SESSION[sellID] ORDER BY itemDate DESC';    
     $sql = 'SELECT * items WHERE sellerID = $_SESSION[sellID] ORDER BY itemDate DESC';    
     $result = mysqli_query($conn,$sql);
     while ($row = mysqli_fetch_assoc($result)){
@@ -75,21 +81,30 @@
     
 ?>
     <span class="flex flex-row bg-gray-500">        
+    <span class="flex flex-row bg-gray-500">        
     
+        <div class="max-w-sm overflow-hidden shadow-lg">
+            <img href='<?php echo $row['img1_fName']?>' alt='<?php echo $row['img1_altText']?>'>
         <div class="max-w-sm overflow-hidden shadow-lg">
             <img href='<?php echo $row['img1_fName']?>' alt='<?php echo $row['img1_altText']?>'>
         </div>
         <div class="float-left md:text-clip">
+        <div class="float-left md:text-clip">
         <h4><?php echo $row['itemName']?></h4>
         </div>
+        <div class="float-left">
         <div class="float-left">
             <h6><?php echo $row['itemPrice']?></h6>
         </div>         
         <?php };?>
     </span>    
 
+        <?php };?>
+    </span>    
+
     <div class=" bg-white dark:bg-black">
         <div class="items-center">
+            <h3>Would you like to create a new listing?</h3>
             <h3>Would you like to create a new listing?</h3>
             <a href="listanitem.php" class="bg-green-700 text-white text-center outline-2">List An Item</a>
         </div>

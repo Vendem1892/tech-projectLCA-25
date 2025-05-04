@@ -6,8 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>List An Item - Sir Arthur Lewis Trading Circle</title>
     <link rel="stylesheet" href="../css/style.css">    
+    <link rel="stylesheet" href="../css/style.css">    
 </head>
 
+<body class="font-sans bg-green-700">
+<header>
+        <div class="bg-green-600 justify-between decoration-solid grid auto-cols-max sticky">
+        <ul>
+            <li>
+            <img src="../img/logo.webp" alt="SALCC Trading Circle Logo" class="logo">
+            </li>
+            <li class=" inline-flex border-solid rounded-md">
+                <nav>
+                    <a href="home.php">Home</a>
+                    <a href="#" class="active:text-yellow-500">Dashboard</a>
+                    <a href="policies.php">Help</a>
+                    <a href="../index.php">Shop</a>
+                </nav>
+            </li>
+        </ul>                               
 <body class="font-sans bg-green-700">
 <header>
         <div class="bg-green-600 justify-between decoration-solid grid auto-cols-max sticky">
@@ -35,6 +52,15 @@
 
         <form action="../includes/listing_handler.php" onsubmit="return listingValidation()" method="post">
                 <h1>List An Item</h1>
+    <br><br>    
+        <div class="items-center bg-slate-200 md:border-8 self-center border-black md:h-1/2 text-black">
+        
+        <h2 class="font-bold text-lg">Log In</h2>
+        <hr class="border-solid border-2">    
+        <br><br>    
+
+        <form action="../includes/listing_handler.php" onsubmit="return listingValidation()" method="post">
+                <h1>List An Item</h1>
                 <hr>
                 <br><br>
         
@@ -44,7 +70,18 @@
                 <br><br>
         
                     <label for="iDesc">Item Description</label><br>
+        
+                    <label for="iName">Item Name</label><br>
+                    <input type="text" placeholder="Enter a name for the item" name="iName" id="iName" autofocus required>
+        
+                <br><br>
+        
+                    <label for="iDesc">Item Description</label><br>
                     <input type="text" placeholder="Enter a description for the item" name="iDesc" id="iDesc" required>
+        
+                <br><br>
+        
+                    <label for="iCat">Item Category</label><br>
         
                 <br><br>
         
@@ -94,15 +131,22 @@
                     <input type="text" placeholder="Enter a description for image 3" name="img3_Alt" id="img3_Alt">
         
                 <br><br><br>
+        
+                <br><br><br>
                 
                 <div class="flex-auto">
                     <input type="submit" name="Create Listing" value="Create Listing" class="text-green-700 bg-white"><br><br>
+                    <input type="submit" name="Create Listing" value="Create Listing" class="text-green-700 bg-white"><br><br>
                 </div>
+        
         
         </form>
     
+    
     </div>
 
+
 </body>
+<script src="../js/main.js"></script>
 <script src="../js/main.js"></script>
 </html>

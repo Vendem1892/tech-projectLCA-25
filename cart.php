@@ -1,6 +1,9 @@
 <?php
 include_once 'includes/dbh.inc.php';
 ?>
+<?php
+include_once 'includes/dbh.inc.php';
+?>
 <!DOCTYPE html>
 <html lang='en'>
 
@@ -91,5 +94,6 @@ include_once 'includes/dbh.inc.php';
                 
             </div>
 </body>
+
 
 </html>

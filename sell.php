@@ -6,6 +6,8 @@
     <title>Become a Seller - Sir Arthur Lewis Trading Circle</title>
     <link rel="stylesheet" href="css/style.css">
     <script type="src" src="js/main.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="src" src="js/main.js"></script>
 </head>
 <body class="font-sans bg-slate-300">
 <header>

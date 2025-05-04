@@ -17,6 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $result = mysqli_query($conn,$sql);
 
     if (mysqli_num_rows($result) > 0) {
+    if (mysqli_num_rows($result) > 0) {
         // User exists, login successful
         echo "Login successful";
 
@@ -25,6 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['email'] = $row['email'];
             $_SESSION['name'] = $row['accfName'].$row['acclName'];
             
+            if($row['sellerID'] != NULL){
+                $_SESSION['sellID'] = $row['sellerID'];
+            }
             if($row['sellerID'] != NULL){
                 $_SESSION['sellID'] = $row['sellerID'];
             }
@@ -42,6 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // No user found with given credentials, login failed
         die("Invalid email or password");
+        header("Location: ../login.php?login=failed");
         header("Location: ../login.php?login=failed");
     }
 }
