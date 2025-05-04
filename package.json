@@ -1,0 +1,29 @@
+{
+  "name": "tech-projectlca-25",
+  "version": "1.0.0",
+  "description": "A user-to-user e-commerce platform available to the students and staff of the Sir Arthur Lewis Community College's Morne Campus.",
+  "homepage": "https://github.com/Vendem1892/tech-projectLCA-25#readme",
+  "bugs": {
+    "url": "https://github.com/Vendem1892/tech-projectLCA-25/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vendem1892/tech-projectLCA-25.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "tailwind.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx @tailwindcss/cli -i css/input.css -o css/style.css --watch"
+  },
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^4.1.5"
+  }
+}

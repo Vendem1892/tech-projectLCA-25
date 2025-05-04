@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Policies - Sir Arthur Lewis Trading Circle</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="js/main.tsx"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/main.js"></script>
 </head>
-<body>
+<body class="font-sans">
     <header>
         <div class="bg-green-600 justify-between decoration-solid grid auto-cols-max sticky">
             <div>

@@ -1,25 +1,13 @@
-<?php
-session_start();
-//Is the user is logged in
-if (isset($_SESSION['email'])) {
-    $uName = $_SESSION['accfName'] + ' ' + $_SESSION['acclName'];
-    $id = $_SESSION['accID'];
-} else {
-    header("location: login.php");
-    exit();
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Become a Seller - Sir Arthur Lewis Trading Circle</title>
-    <link rel="stylesheet" href="style.css">
-    <script type="src" src="js/main.tsx"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="src" src="js/main.js"></script>
 </head>
-<body>
+<body class="font-sans bg-slate-300">
 <header>
         <div class="bg-green-600 justify-between decoration-solid grid auto-cols-max sticky">
             <div>
@@ -31,7 +19,7 @@ if (isset($_SESSION['email'])) {
                 <a href="home.php">Home</a>
                 <a href="aboutus.php">About Us</a>
                 <a href="policies.php">Help</a>
-                <a href="#" class="active:text-yellow-500">Sell</a>
+                <a href="#" class="text-yellow-500">Sell</a>
                 </nav>
             </div>                
             <div>                
@@ -50,10 +38,8 @@ if (isset($_SESSION['email'])) {
     These items can be used, new or refurbished. The sale of known damaged items will be punished.</p>
     </div>
     
-    <div class=" bg-white dark:bg-black">
-        <div class="items-center">
-            <a href="sell/becomeseller.php" class=" bg-green-700 text-white text-center outline-2">Become a Seller</a>
-        </div>
+    <div class= "items-center">    
+            <a href="sell/becomeseller.php" class=" bg-green-700 text-white text-center outline-2">Become a Seller</a>        
     </div>
     <hr class="ring-2">
     <div class="grid columns-5 bg-white">
