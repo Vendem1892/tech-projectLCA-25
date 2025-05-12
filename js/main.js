@@ -2,7 +2,7 @@
   validateForm();
 });*/
 
-const email = document.getElementById('email').value;
+  const email = document.getElementById('email').value;
   const password = document.getElementById('pwd').value;
   const confirmPassword = document.getElementById('pwd-rep').value;
   const firstName = document.getElementById('fName').value;
@@ -17,16 +17,18 @@ const email = document.getElementById('email').value;
   const itemImage1_Alt = document.getElementById('img1_Alt').value;
   const submitBtn = document.getElementById('submitBtn');
   const errorElement = document.getElementById('passwordError');
-  let infinite = true;
-  let slidesToShow = slidesToShow[5];
-  let slidesToScroll = 1;
-  let prev = document.querySelector('prev');
-  let next = document.querySelector('next');
   
 
+//Password validation for registration form
 function regValidation() {
-
   let isValid = true;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('pwd').value;
+  const confirmPassword = document.getElementById('pwd-rep').value;
+  const firstName = document.getElementById('fName').value;
+  const lastName = document.getElementById('lName').value;
+  const dateofBirth = document.getElementById('dob').value;
+  
 
   if (!email || !password || !confirmPassword || !firstName || !lastName || !dateofBirth) {
       isValid = false;
@@ -52,6 +54,7 @@ function regValidation() {
   }
 }
 
+//Password validation for logins
 function loginValidation(){
 
   let isValid = true;
@@ -80,10 +83,19 @@ function loginValidation(){
   }
 }
 
+//Password validation for item listings
 function listingValidation(){
   let isValid = true;
 
-  if (!email || !password || !confirmPassword || !firstName || !lastName || !dateofBirth) {
+  const itemName = document.getElementById('iName').value;
+  const itemDesc = document.getElementById('iDesc').value;
+  const itemCategory = document.getElementById('iCat').value;
+  const itemPrice = document.getElementById('iPrice').value;
+  const itemQuantity = document.getElementById('iAmt').value;
+  const itemImage1 = document.getElementById('img1').value;
+  const itemImage1_Alt = document.getElementById('img1_Alt').value;
+
+  if (!itemName || !itemDesc || !itemCategory || !itemPrice || !itemQuantity || !itemImage1 || !itemImage1_Alt) {
       isValid = false;
   }
 
@@ -95,190 +107,4 @@ function listingValidation(){
       submitBtn.disabled = true;
   }
 }
-
-function listScroll(){
-  next
-}
-
-let gCard = document.querySelector('govCard');
-
-let sCard = document.querySelector('salCard');
-let sCard_fName = document.querySelector('salCard_fName');
-
-//Finding file names from file input
-gCard.addEventListener('input', () => {
-  if(gCard.files.length){
-    let filename = gCard.files[0].name;
-    document.querySelector('govCard_fName').value = filename;
-  }
-  else{
-    document.querySelector('govCard_fName').value = null;
-  }
-})
-
-sCard.addEventListener('input', () => {
-  if(sCard.files.length){
-    let filename = gCard.files[0].name;
-    document.querySelector('govCard_fName').value = filename;
-  }
-  else{
-    document.querySelector('govCard_fName').value = null;
-  }
-})
-
-let img1 = document.querySelector('img1');
-let img2 = document.querySelector('img2');
-let img3 = document.querySelector('img3');
-
-
-img1.addEventListener('input', () => {
-  if(img1.files.length){
-    let filename = img1.files[0].name;
-    document.querySelector('img1_fName').value = filename;
-  }
-  else{
-    document.querySelector('img1_fName').value = null;
-  }
-})
-
-img2.addEventListener('input', () => {
-  if(img2.files.length){
-    let filename = img2.files[0].name;
-    document.querySelector('img2_fName').value = filename;
-  }
-  else{
-    document.querySelector('img2_fName').value = null;
-  }
-})
-
-
-img3.addEventListener('input', () => {
-  if(img3.files.length){
-    let filename = img3.files[0].name;
-    document.querySelector('img3_fName').value = filename;
-  }
-  else{
-    document.querySelector('img3_fName').value = null;
-  }
-})
-
-addToCartButton = document.querySelectorAll(".add-to-cart-button");
-
-document.querySelectorAll('.add-to-cart-button').forEach(function(addToCartButton) {
-    addToCartButton.addEventListener('click', function() {
-        addToCartButton.classList.add('added');
-        setTimeout(function(){
-            addToCartButton.classList.remove('added');
-        }, 2000);
-    });
-});
-
-
-
-// Create a PayPal Checkout component.
-braintree.paypalCheckout.create({
-    client: clientInstance
-  }, function (paypalCheckoutErr, paypalCheckoutInstance) {
-    // Base PayPal SDK script options
-    var loadPayPalSDKOptions = {
-      currency: 'USD',  // Must match the currency passed in with createPayment
-      intent: 'capture' // Must match the intent passed in with createPayment
-    }
-
-    paypalCheckoutInstance.loadPayPalSDK(loadPayPalSDKOptions, function () {
-      paypal.Buttons({
-        fundingSource: paypal.FUNDING.PAYPAL,
-
-        createOrder: function () {
-          // Base payment request options for one-time payments
-          var createPaymentRequestOptions = {
-            flow: 'checkout', // Required
-            amount: 10.00, // Required
-            currency: 'USD', // Required, must match the currency passed in with loadPayPalSDK
-
-            intent: 'capture', // Must match the intent passed in with loadPayPalSDK
-          };
-
-          return paypalCheckoutInstance.createPayment(createPaymentRequestOptions);
-        },
-
-        onApprove: function (data, actions) {
-          return paypalCheckoutInstance.tokenizePayment(data, function (err, payload) {
-            // Submit 'payload.nonce' to your server
-          });
-        },
-
-        onCancel: function (data) {
-          console.log('PayPal payment cancelled', JSON.stringify(data, 0, 2));
-        },
-
-        onError: function (err) {
-          console.error('PayPal error', err);
-        }
-      }).render('#paypal-button').then(function () {
-        // The PayPal button will be rendered in an html element with the ID
-        // 'paypal-button'. This function will be called when the PayPal button
-        // is set up and ready to be used
-      });
-    });
-  });
-
-  
-// Create a client.
-braintree.client.create({
-    authorization: CLIENT_AUTHORIZATION
-  }).then(function (clientInstance) {
-    // Create a PayPal Checkout component.
-    return braintree.paypalCheckout.create({
-      client: clientInstance
-    });
-  }).then(function (paypalCheckoutInstance) {
-    // Base PayPal SDK script options
-    var loadPayPalSDKOptions = {
-      currency: 'USD', // Must match the currency passed in with createPayment
-      intent: 'capture' // Must match the intent passed in with createPayment
-    }
-  
-    return paypalCheckoutInstance.loadPayPalSDK(loadPayPalSDKOptions);
-  }).then(function (paypalCheckoutInstance) {
-  
-    return paypal.Buttons({
-      fundingSource: paypal.FUNDING.PAYPAL,
-  
-      createOrder: function () {
-        // Base payment request options for one-time payments
-        var createPaymentRequestOptions = {
-          flow: 'checkout', // Required
-          amount: 10.00, // Required
-          currency: 'USD', // Required, must match the currency passed in with loadPayPalSDK
-  
-          intent: 'capture', // Must match the intent passed in with loadPayPalSDK
-        };
-  
-        return paypalCheckoutInstance.createPayment(createPaymentRequestOptions);
-      },
-  
-      onApprove: function (data, actions) {
-        return paypalCheckoutInstance.tokenizePayment(data).then(function (payload) {
-          // Submit 'payload.nonce' to your server
-        });
-      },
-  
-      onCancel: function (data) {
-        console.log('PayPal payment cancelled', JSON.stringify(data, 0, 2));
-      },
-  
-      onError: function (err) {
-        console.error('PayPal error', err);
-      }
-    }).render('#paypal-button');
-  }).then(function () {
-    // The PayPal button will be rendered in an html element with the ID
-    // 'paypal-button'. This function will be called when the PayPal button
-    // is set up and ready to be used
-  });
-
-  
-
-
 

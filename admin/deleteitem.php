@@ -3,9 +3,9 @@
 include_once '../includes/dbh.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] == "POST"){
-    $repID = mysqli_real_escape_string($conn,$_POST['repID']);
+    $itemID = mysqli_real_escape_string($conn,$_POST['itemID']);
 
-    $sql = "DELETE FROM reports WHERE itemID = '$repID'";
+    $sql = "DELETE FROM items WHERE itemID = '$itemID'";
     $result = mysqli_query($conn,$sql);
 
     if($result === TRUE){

@@ -5,7 +5,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $accID = mysqli_real_escape_string($conn, $_POST['accID']);
 
     //Query to check if user exists in the database with given email and password
-    $sql = "SELECT * FROM accounts WHERE email = '$email' AND pwd = '$pwd'";
+    $sql = "SELECT * FROM accounts WHERE accID = '$accID'";
     $result = mysqli_query($conn, $sql);
 
     if (mysqli_num_rows($result) > 0) {
@@ -18,19 +18,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         VALUES('$sellID',0,'$accID');";
 
 
-        if (mysqli_query($conn, $sqlNewSell) === TRUE) {
-            echo "User: $accID seller account verified.";
-            $sqlUp = "UPDATE accounts SET sellerID = $sellID WHERE accID = $accID;";
+        if (mysqli_query($conn, $sqlNewSell) === TRUE) {            
+            $sqlUp = "UPDATE accounts SET sellerID = '$sellID' WHERE accID = '$accID';";
+            $resUp = mysqli_query($conn, $sqlUp);
             //Update accounts table with new seller ID
-            if (mysqli_query($conn, $sqlUp) === TRUE) {
-                echo "User: $accID account table updated.";
-                header("refresh:5; url=adminDashboard.php?verification=successful");
+            if ($resUp === TRUE) {
+                $sqlDel = "DELETE FROM sellregids WHERE accID = '$accID'";
+                $resDel = mysqli_query($conn,$sqlDel);
+                if ($resDel === TRUE){
+                    echo "<script>alert('User: $accID seller account verified')</script>";                                
+                    header("refresh:3; url=adminDashboard.php?verification=successful");
+                }else{
+                    echo "<script>alert('Deletion of User: $accID seller verification request failed')</script>";
+                    header("refresh:3; url=adminDashboard.php?verificationrequestdel=failed");
+                }
+                
             } else {
-                echo "Account table failed to update.";
+                echo "<script>alert('Account table failed to update')</script>";
                 header("refresh:3; url=adminDashboard.php?accupdate=failed");
             }
         } else {
-            echo "Seller verification failed.";
+            echo "<script>alert('Seller verification failed')</script>";
             header("refresh:3; url=adminDashboard.php?verification=failed");
         }
 

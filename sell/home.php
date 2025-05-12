@@ -1,21 +1,35 @@
 <?php
-<?php
 include_once '../includes/dbh.inc.php';
-$itemHead = 'Cheapest Items';
+
+session_start();
+if (isset($_SESSION['sellID'])) {
+    $sellID = $_SESSION['sellID'];
+    $email = $_SESSION['email'];
+} else {
+    header("location:../becomeaseller.php");
+    exit();
+}
+
+$itemHead = 'Most Recent Items';
+$sortOpt = 'itemDate';
+$sortDir = 'DESC';
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $sortOpt = $_POST['sortOption'];
+    $sortOpt = mysqli_escape_string($conn, $_POST['sortOpt']);
     if ($sortOpt == NULL) {
         $sortOpt = 'itemDate';
     }
-    $sortDir = $_POST['sortDirection'];
+
+    $sortDir = mysqli_escape_string($conn, $_POST['sortDir']);
     if ($sortDir == NULL) {
         $sortDir = 'DESC';
     }
-    if ($sortDir == 'itemDate' && $sortOpt == 'DESC') {
+
+    if (($sortDir == 'DESC') && ($sortOpt == 'itemDate')) {
         $itemHead = 'Most Recent Items';
-    } else if ($sortDir == 'itemDate' && $sortOpt == 'ASC') {
+    } else if (($sortDir == 'ASC') && ($sortOpt == 'itemDate')) {
         $itemHead = 'Oldest Items';
-    } else if ($sortDir == 'itemPrice' && $sortOpt == 'DESC') {
+    } else if (($sortDir == 'DESC') && ($sortOpt == 'itemPrice')) {
         $itemHead = 'Most Expensive Items';
     } else {
         $itemHead = 'Cheapest Items';
@@ -31,157 +45,257 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Sir Athur Lewis Trading Circle</title>
     <link rel="stylesheet" href="../css/style.css">
-    <script src="../js/main.js"></script>
-    <script src="../js/main.js"></script>
 </head>
 
 
 <body class="font-sans">
-<body class="font-sans">
-    <header>
-        <div class="bg-green-600 decoration-solid sticky">
-            <div>
-                <img src="../img/logo.webp" alt="SALCC Trading Circle Logo" class="logo">
-
-            </div>
-            <div class="border-solid rounded-md text-white">
-                <nav>
-                    <a href="home.php" class="text-yellow-500">Home</a>
-                    <a href="listanitem.php">List An Item</a>
-                    <a href="../policies.php">Help</a>
+<header>
+        <nav>
+            <div class="bg-green-600 text-lg px-2">
+                <div class="flex space-x-80 container">
                     <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3" />
-                            <circle cx="12" cy="10" r="3" />
-                            <circle cx="12" cy="12" r="10" />
-                        </svg>
-                        <select class="flex justify-center rounded-md bg-zinc-400 p-10 font-semibold focus:ring-1 focus:ring-zinc-500 hover:bg-zinc-500" id="menu-button" aria-expanded="true" aria-haspopup="true">
-                            <option value="account">Account</option>
-                            <option value="profile"><a href="profile.php">Profile</a></option>
-                            <option value="dashboard"><a href="dashboard.php">Dashboard</a></option>
-                            <option value="logout"><a href="logout.php">Logout</a></option>
-                        </select>
+                        <img src="../img/logo.webp" alt="Sir Arthur Lewis Trading Circle logo" class="h-25 w-40">
                     </div>
-                    <a href="../index.php">Shop</a>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="4" y1="21" x2="4" y2="14"></line>
-                        <line x1="4" y1="10" x2="4" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12" y2="3"></line>
-                        <line x1="20" y1="21" x2="20" y2="16"></line>
-                        <line x1="20" y1="12" x2="20" y2="3"></line>
-                        <line x1="1" y1="14" x2="7" y2="14"></line>
-                        <line x1="9" y1="8" x2="15" y2="8"></line>
-                        <line x1="17" y1="16" x2="23" y2="16"></line>
-                        <a href="dashboard.php"></a>
-                    </svg>
-                    <button class="bg-yellow-400 active:bg-yellow-500 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-500 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 focus:outline-solid">
-                        <a href="../logout.php">Log Out</a>
-                    </button>
-            </div>
+                    <div class="flex justify-between items-center py-3 space-x-4 text-white">
+                        <a href="#" class="text-yellow-400">Home</a>
+                        <a href="../aboutus.php" class="hover:text-yellow-400 transition">About Us</a>
+                        <a href="../policies.php" class="hover:text-yellow-400 transition">FAQ</a>
+                        <div class='relative inline-block text-center'>
+                            <div class='relative group rounded-md bg-green-400'>
+                                <div class='flex flex-row'>
+                                    <!-- Account Icon -->
+                                    <svg xmlns='http://www.w3.org/2000/svg' class='relative top-2' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='#000000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'>
+                                        <path d='M5.52 19c.64-2.2 1.84-3 3.22-3h6.52c1.38 0 2.58.8 3.22 3' />
+                                        <circle cx='12' cy='10' r='3' />
+                                        <circle cx='12' cy='12' r='10' />
+                                    </svg>
+                                    <a class='text-md active:font-bold hover:text-zinc-400 text-lg
+text-center w-full no-underline sm:w-auto px-2 py-2 sm:py-1 transition'>
+                                        Account
+                                    </a>
+                                </div>
+                                <div class='absolute z-10 hidden bg-grey-200 group-hover:flex hover:transition'>
+                                    <div class='px-6 pt-2 pb-4 bg-green-400 shadow-lg'>
+                                        <div class='dropdown-menu'>
+                                            <ul class='flex flex-col justify-between space-y-1'>
+                                                <li><a href='../profile.php' class='hover:text-zinc-400 transition dropdown-item'>Profile</a></li>
+                                                <li><a href='dashboard.php' class='hover:text-zinc-400 transition dropdown-item'>Dashboard</a></li>
+                                                <li><a href='../logout.php' class='hover:text-zinc-400 transition dropdown-item'>Logout</a></li>
+                                                <ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
 
-            </nav>
-        </div>
-        </div>
-    </header>
-    <br><br>
-    <div class='bg-slate-500'>
-        <section>
-            <div>
-                <div class='h-6 w-4 float-right'>
-                    <img src='img/sortbut.png' alt='Sort button (Downward arrow with steps)'>
-                    <h5 class='inline font-sans font-bold'>Sort</h5>
-                    <div>
-                        <form action='home.php' method='post'>
-                            <select name='SortOption' id='sortOpt'>
-                                <option value='itemDate'>Recency</option>
-                                <option value='itemPrice'>Price</option>
-                            </select>
-                            <select name='SortDirection' id='sortDir'>
-                                <option value='ASC' class="before:content-['↑']">Ascending</option>
-                                <option value='DESC' class="before:content-['↓']">Descending</option>
-                            </select>
-                            <input type="submit" value="sortSubmit" class="bg-blue-500 text-center hover:bg-blue-600 focus:outine-2 focus:outline-offset-2 focus:outine-blue-600 active:bg-blue-700">
-                        </form>
+                        <a href="../index.php" class="hover:text-yellow-400 transition">Shop</a>
+                        <div class="flex space-x-24 absolute right-4">
+                            <div class="flex items-center">
+                                <a href="dashboard.php">
+                                    <!-- Dashboard Icon -->
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <line x1="4" y1="21" x2="4" y2="14"></line>
+                                        <line x1="4" y1="10" x2="4" y2="3"></line>
+                                        <line x1="12" y1="21" x2="12" y2="12"></line>
+                                        <line x1="12" y1="8" x2="12" y2="3"></line>
+                                        <line x1="20" y1="21" x2="20" y2="16"></line>
+                                        <line x1="20" y1="12" x2="20" y2="3"></line>
+                                        <line x1="1" y1="14" x2="7" y2="14"></line>
+                                        <line x1="9" y1="8" x2="15" y2="8"></line>
+                                        <line x1="17" y1="16" x2="23" y2="16"></line>
+                                    </svg> </a>
+                            </div>
+                            <div>
+                                <button class="bg-yellow-400 active:bg-yellow-500 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-500 font-medium rounded-lg text-md  m-2 px-3 py-1 focus:outline-none">
+                                    <a href="../logout.php">Log Out</a>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
             </div>
-            <div class="p-5 bg-slate-300" id="itemContainer">
+        </nav>
+    </header>
+    <br><br>
+    
+        
+            <div>
+        <div class="float-right flex mr-4">
+            <div class="flex flex-row space-x-2">
+                <img src='../img/sortbut.png' alt='Sort button (Downward arrow with steps)' class="size-5">
+                <h5 class='font-bold'>Sort</h5>
+                <div class="flex justify-between space-x-4">
+                    <form action='index.php' method='post'>
+                        <select name='sortOpt' id='sortOpt'>
+                            <option value='itemDate'>Recency</option>
+                            <option value='itemPrice'>Price</option>
+                        </select>
+                        <select name='sortDir' id='sortDir'>
+                            <option value="ASC">Ascending</option>
+                            <option value="DESC">Descending</option>
+                        </select>
+                        <input type="submit" value="Sort" class="text-center rounded-md bg-blue-500 hover:bg-blue-600 focus:outine-none focus:ring-2 focus:ring-blue-600 active:bg-blue-700 text-white px-4 py-1">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br><br>
 
                 <?php
+    echo "
+                <h3 class='font-bold text-xl float-left ml-2' id='prodHeader'>$itemHead</h3>";
+    ?><br>
 
-                echo "<h3 class='font-bold font-sans text-lg float-left' id='prodHeader'>$itemHead</h3>";
-                $sql = "SELECT * FROM items ORDER BY $sortOpt $sortDir";
-                $result = mysqli_query($conn, $sql);
-                if (mysqli_num_rows($result) <= 0) {
-                    echo "<p class='self-center text-black italic'>No Items Available</p>";
-                }
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $itemID = $row['itemID'];
-                    $iTitle = $row['itemName'];
-                    $iDesc = $row['itemDescription'];
-                    $iCat = $row['itemCategory'];
-                    $iPrice = $row['itemPrice'];
-                    $iDate = $row['itemDate'];
-                    $quantity = $row['quantity'];
+    <div class="p-3 mx-2 bg-slate-300 flex justify-normal flex-wrap space-y-10 space-x-20 container" id="itemContainer">
+
+
+        <?php
+
+
+        $sql = "SELECT * FROM items WHERE quantity > 0 ORDER BY $sortOpt $sortDir";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) <= 0) {
+            echo "<p class='text-center text-black italic'>No Items Available</p>";
+        }
+        while ($row = mysqli_fetch_assoc($result)) {
+            $itemID = $row['itemID'];
+            $iTitle = $row['itemName'];
+            $iDesc = $row['itemDescription'];
+            $iCat = $row['itemCategory'];
+            $iPrice = $row['itemPrice'];
+            $iDate = $row['itemDate'];
+            $quantity = $row['quantity'];            
+            $sellID = $row['sellerID'];
+            $sqlImg = "SELECT * from item_images WHERE itemID = '$itemID'";
+                $resImg = mysqli_query($conn, $sqlImg);
+                if (mysqli_num_rows($resImg) <= 0) {
                     $img1 = $row['img1_fName'];
                     $imgAlt1 = $row['img1_altText'];
-                    $sellID = $row['sellerID'];
-
-                    echo " 
-    
-<div class='bg-zinc-100 w-20 float-left'>
-<div>
-<img src='img/$img1' alt='$imgAlt1' class='w-10 h-14 border-b-4 border-gray-700 p-2'>
-</div>
-<div class='w-10 h-9 p-2 font-san'>
-<h4 class='itemName'>$iTitle</h4>
-<span class='category sr-only'>$iCat</span>
-<br>
-<p class='itemDesc'> $iDesc </p>
-<span class='itemDate'>$iDate</span>
-<br>
-<h5 class='price'> '$'. $iPrice</h5>
-</div>
-</div>";
+                    $img2 = null;
+                    $imgAlt2 = null;
+                    $img3 = null;
+                    $imgAlt3 = null;
+                } else {
+                    while ($row2 = mysqli_fetch_assoc($resImg)) {
+                        $img1 = $row2['img1_fName'];
+                        $imgAlt1 = $row2['img1_altText'];
+                        if ($row2['img2_fName'] != null) {
+                            $img2 = $row2['img2_fName'];
+                        } else {
+                            $img2 = '#';
+                        }
+                        if ($row2['img2_altText'] != null) {
+                            $imgAlt2 = $row2['img2_altText'];
+                        } else {
+                            $imgAlt2 = 'N/A';
+                        }
+                        if ($row2['img3_fName'] != null) {
+                            $img3 = $row2['img3_fName'];
+                        } else {
+                            $img3 = '#';
+                        }
+                        if ($row2['img3_altText'] != null) {
+                            $imgAlt3 = $row2['img3_altText'];
+                        } else {
+                            $imgAlt3 = 'N/A';
+                        }
+                    }
                 }
-                ?>
+            $iPrice=number_format((float)$iPrice, 2, '.', '');
+           
 
-            </div>
+                if (($img2 == '#') && ($img3 == '#')) {
+                    echo " 
+                            <div class='bg-slate-200 border-transparent rounded-md flex flex-col px-2 mb-2 w-64'>
+                            <div class='w-1/2 h-32 flex justify-center items-center m-2 overflow-auto'>
+                                <img src='img/$img1' alt='$imgAlt1'>
+                            </div>
+                            <br>
+                            <div class='p-2 font-sans text-black font-semibold'>
+                                <p id='iID' class='hidden'>$itemID</p>
+                                <h3 class='text-lg wrap-anywhere overflow-auto' id='itemName'>$iTitle</h3>
+                                <span class='hidden'>$iCat</span>
+                                <br>
+                                <p id='itemDesc' class='text-base wrap-anywhere overflow-auto'> $iDesc </p>
+                                <span id='itemDate' class='hidden'>$iDate</span>
+                                <br>
+                                <h5 class='text-lg' id='price'>$$iPrice</h5>
+                            </div>
+                            <div class='relative flex flex-row space-x-4 float-right mb-2'>   
+                            <form action='report.php' method='post'>
+                                <input type='hidden' name='itemID' value='$itemID'>
+                                <input type='submit' name='Report Listing' value='Report Listing' class='bg-red-500 text-center hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-red-600 active:bg-red-700 rounded-md p-2 relative text-white float-right'>
+                            </form>                         
+                            <form action='includes/addcart.php' method='post'>
+                                <input type='hidden' name='accID' id='accID' value='$id'>
+                                <input type='hidden' name='itemID' id='itemID' value='$itemID'>                                
+                                <input type='submit' name='Add to Cart' value='Add to Cart' class='bg-blue-500 text-center hover:bg-blue-600 focus:ring-2 focus:outline-none focus:ring-blue-600 active:bg-blue-700 rounded-md p-2 relative text-white float-right'>
+                            </form>
+                            </div>
+                        </div>                          
+                        
+                            ";
+                } else {
+                    echo "
+                            <div class='bg-slate-200 border-transparent rounded-md flex flex-col px-2 mb-2 w-72'>                            
+                            <div class='swiper w-64 h-48'>
+                            <div class='flex overflow-hidden justify-center items-center swiper-wrapper'> 
+                                    <div class='swiper-slide'>
+                                    <img src='..img/$img1' alt='$imgAlt1'>
+                                    </div>
+                                    <div class='swiper-slide'>
+                                    <img src='..img/$img2' alt='$imgAlt2'>
+                                    </div>
+                                    <div class = 'swiper-slide'>
+                                    <img src='..img/$img3' alt='$imgAlt3'>
+                                    </div>
+                            </div>                            
 
-        </section>
+                            <div class='swiper-pagination'></div>                                
+                            <div class='swiper-button-prev'></div>
+                            <div class='swiper-button-next'></div>
+
+                            </div>                            
+                            <div class='p-2 font-sans text-black font-semibold wrap-anywhere overflow-auto'>
+                                <h3 class='text-lg' id='itemName'>$iTitle</h3>
+                                <span class='hidden'>$iCat</span>
+                                <br>
+                                <p id='itemDesc' class='text-base'> $iDesc </p>
+                                <span id='itemDate' class='hidden'>$iDate</span>
+                                <br>
+                                <h5 class='text-lg' id='price'>$$iPrice</h5>
+                            </div>
+                            <div class='relative flex flex-row float-right space-x-4 mb-2'>   
+                            <form action='report.php' method='post'>
+                                <input type='hidden' name='itemID' value='$itemID'>
+                                <input type='submit' name='Report Listing' value='Report Listing' class='bg-red-500 text-center hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-red-600 active:bg-red-700 rounded-md p-2 relative text-white float-right'>
+                            </form>                         
+                            <form action='includes/addcart.php' method='post'>
+                                <input type='hidden' name='accID' id='accID' value='$id'>
+                                <input type='hidden' name='itemID' id='itemID' value='$itemID'>                                
+                                <input type='submit' name='Add to Cart' value='Add to Cart' class='bg-blue-500 text-center hover:bg-blue-600 focus:ring-2 focus:outline-none focus:ring-blue-600 active:bg-blue-700 rounded-md p-2 relative text-white float-right'>
+                            </form>
+                            </div>
+                        </div>
+                    ";
+                }
+            }
+        
+
+        
+        ?>
 
     </div>
+
     <br><br>
-    <footer>
-        <div class="grid grid-cols-4 gap-5 bg-green-600 text-white">
+    <footer class="relative bottom-0 w-full">
+        <div class="flex justify-evenly mt-1 space-x-4 bg-green-600 text-white rounded-sm">
             <div>
                 <ul class="md:list-outside">
                     <li class="font-bold capitalize">Shop</li>
-                    <li><a href="#Trending Items">Trending</a></li>
-                    <li><a href="help/buy.php">How to Buy</a></li>
-                    <li><a href="signup.php">Create An Account</a></li>
-                </ul>
-            </div>
-            <div>
-                <ul class="md:list-outside">
-                    <li class="font-bold capitalize">Sell</li>
-                    <li><a href="sell/becomesell.php">Become a Seller</a></li>
-                    <li><a href="sell.php">How to Sell</a></li>
-                    <li><a href="sell/verify.php">Verification</a></li>
-                </ul>
-        </section>
-
-    </div>
-    <br><br>
-    <footer>
-        <div class="grid grid-cols-4 gap-5 bg-green-600 text-white">
-            <div>
-                <ul class="md:list-outside">
-                    <li class="font-bold capitalize">Shop</li>
-                    <li><a href="#Trending Items">Trending</a></li>
+                    <li><a href="profile.php">Profile</a></li>
                     <li><a href="help/buy.php">How to Buy</a></li>
                     <li><a href="signup.php">Create An Account</a></li>
                 </ul>
@@ -202,21 +316,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li><a href="help/vendor.php">Vendor Guidelines</a></li>
                     <li><a href="help/safety.php">Safety Guidelines</a></li>
                 </ul>
-            <div>
-                <ul class="md:list-outside">
-                    <li class="font-bold capitalize">Help</li>
-                    <li><a href="help.php">All Articles</a></li>
-                    <li><a href="help/refund.php">Refunds</a></li>
-                    <li><a href="help/vendor.php">Vendor Guidelines</a></li>
-                    <li><a href="help/safety.php">Safety Guidelines</a></li>
-                </ul>
             </div>
             <div>
-                <ul class="md:list-outside">
-                    <li class="font-bold capitalize"><a href="aboutus.php"></a>About Us</li>
-                    <li><a href="contact.php">Contact Information</a></li>
-                    <li><a href="policies.php">Policies</a></li>
-                </ul>
                 <ul class="md:list-outside">
                     <li class="font-bold capitalize"><a href="aboutus.php"></a>About Us</li>
                     <li><a href="contact.php">Contact Information</a></li>
@@ -225,7 +326,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </footer>
-    </footer>
 </body>
+<script src="../js/main.js"></script>
 
 </html>
