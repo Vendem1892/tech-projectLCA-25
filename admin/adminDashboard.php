@@ -129,7 +129,7 @@ include_once '../includes/dbh.inc.php';
         </div>        
         </div>
         <div class='relative float-right mb-2'>           
-            <form action='deleterecord.php' method='post'>
+            <form action='deletereport.php' method='post'>
             <input type='hidden' name='repID' id='repID' value=$repID>
             <input type='submit' name='Remove' value='Remove' class='bg-red-500 text-center hover:bg-red-600 focus:ring-2 focus:outline-none focus:ring-red-600 active:bg-red-700 rounded-md p-2 relative text-white float-right'>
             </form> 
