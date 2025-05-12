@@ -11,10 +11,10 @@ $result = mysqli_query($conn,$sql);
 
 if ($result === TRUE) {
 	echo "<script>alert('New report created successfully.')</script>";	
-	header("refresh:5; url=../sell/listanitem.php?listingcreation=successful");	
+	header("refresh:5; url=..index.php?reportcreation=successful");	
 } else {
 	echo "<script>alert('Failed to create report.')</script>";
-	header("refresh:5; url=../sell/listanitem.php?listingcreation=failed");
+	header("refresh:5; url=../index.php?reportcreation=failed");
 }
 
 mysqli_close($conn);

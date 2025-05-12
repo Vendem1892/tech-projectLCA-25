@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Include the configuration file
 require_once 'config.php';
 
@@ -57,7 +58,7 @@ if(!empty($_POST['paypal_order_check']) && !empty($_POST['order_id'])){
 
 		if(!empty($order['payer'])){
 			$payer = $order['payer'];
-			$payer_id = $payer['payer_id'];
+			$payer_id = $_SESSION['id'];
 			$payer_name = $payer['name'];
 			$payer_given_name = !empty($payer_name['given_name'])?$payer_name['given_name']:'';
 			$payer_surname = !empty($payer_name['surname'])?$payer_name['surname']:'';

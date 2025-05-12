@@ -315,6 +315,7 @@ paypal.Buttons({
                         }
                     }
                 },
+                
                 "items": [
 					{
 						"name": "<?php echo $iTitle; ?>", /* Shows within upper-right dropdown during payment approval */
