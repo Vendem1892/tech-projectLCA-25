@@ -5,7 +5,8 @@ if (isset($_SESSION['email'])) {
     $uName = $_SESSION['name'];
     $id = $_SESSION['id'];
     if (isset($_SESSION['sellID'])) {
-        $sellID = $_SESSION['sellID'];
+        header("location: dashboard.php");
+exit();
     } else {
         $sellID = null;
     }
